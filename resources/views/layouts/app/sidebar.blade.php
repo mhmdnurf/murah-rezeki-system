@@ -30,7 +30,7 @@
                     </flux:sidebar.group>
 
                     <flux:sidebar.group heading="Operasional" class="mt-5 grid gap-1">
-                        <flux:sidebar.item icon="shopping-cart" href="#">Transaksi Penjualan</flux:sidebar.item>
+                        <flux:sidebar.item icon="shopping-cart" :href="route('cashier.sales')" :current="request()->routeIs('cashier.sales')" wire:navigate>Transaksi Penjualan</flux:sidebar.item>
                         <flux:sidebar.item icon="chart-bar" href="#">Laporan Penjualan</flux:sidebar.item>
                         <flux:sidebar.item icon="users" href="#">Kelola Akun</flux:sidebar.item>
                     </flux:sidebar.group>
