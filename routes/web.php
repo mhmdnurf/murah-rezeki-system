@@ -32,6 +32,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->middleware('role:'.Role::OWNER)
         ->name('owner.products');
 
+    Route::livewire('owner/inventory', 'pages::owner.inventory')
+        ->middleware('role:'.Role::OWNER)
+        ->name('owner.inventory');
+
+    Route::livewire('owner/stock-in', 'pages::owner.stock-in')
+        ->middleware('role:'.Role::OWNER)
+        ->name('owner.stock-in');
+
     Route::view('cashier/dashboard', 'dashboard')
         ->middleware('role:'.Role::CASHIER)
         ->name('cashier.dashboard');
