@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -26,6 +27,10 @@ class DatabaseSeeder extends Seeder
             ['slug' => Role::CASHIER],
             ['name' => 'Cashier'],
         );
+
+        foreach (['Makanan', 'Minuman', 'Perawatan', 'Kebutuhan Rumah Tangga'] as $categoryName) {
+            Category::updateOrCreate(['name' => $categoryName]);
+        }
 
         $this->seedUser(
             username: 'pemilik',
