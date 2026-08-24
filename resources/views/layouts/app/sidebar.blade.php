@@ -34,7 +34,7 @@
                                 <a href="{{ route('owner.categories') }}" class="block rounded-md px-3 py-2.5 text-sm transition-colors duration-150 {{ request()->routeIs('owner.categories') ? 'bg-sky-500 font-medium text-white hover:bg-sky-600' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}" wire:navigate>Kategori Barang</a>
                                 <a href="{{ route('owner.inventory') }}" class="block rounded-md px-3 py-2.5 text-sm transition-colors duration-150 {{ request()->routeIs('owner.inventory') ? 'bg-sky-500 font-medium text-white hover:bg-sky-600' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}" wire:navigate>Persediaan Barang</a>
                                 <a href="{{ route('owner.stock-in') }}" class="block rounded-md px-3 py-2.5 text-sm transition-colors duration-150 {{ request()->routeIs('owner.stock-in') ? 'bg-sky-500 font-medium text-white hover:bg-sky-600' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}" wire:navigate>Barang Masuk</a>
-                                <a href="#" class="block rounded-md px-3 py-2.5 text-sm text-slate-600 transition-colors duration-150 hover:bg-slate-50 hover:text-slate-900">Barang Keluar</a>
+                                <a href="{{ route('owner.stock-out') }}" class="block rounded-md px-3 py-2.5 text-sm transition-colors duration-150 {{ request()->routeIs('owner.stock-out') ? 'bg-sky-500 font-medium text-white hover:bg-sky-600' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}" wire:navigate>Barang Keluar</a>
                             </div>
                         </details>
                     </div>
