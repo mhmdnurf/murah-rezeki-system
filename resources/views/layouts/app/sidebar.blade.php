@@ -21,23 +21,13 @@
                         <flux:sidebar.item icon="layout-grid" :href="route('owner.dashboard')" :current="request()->routeIs('owner.dashboard', 'dashboard')" wire:navigate>Dashboard</flux:sidebar.item>
                     </flux:sidebar.group>
 
-                    <div class="mt-5 px-2">
-                        <details open class="group">
-                            <summary class="flex cursor-pointer list-none items-center gap-3 rounded-lg px-2 py-2 text-sm font-medium text-slate-800 transition-colors duration-150 hover:bg-slate-50 [&::-webkit-details-marker]:hidden">
-                                <flux:icon name="cube" class="size-4 text-slate-600" />
-                                <span>Inventaris</span>
-                                <flux:icon name="chevron-down" class="ms-auto size-4 text-slate-500 transition-transform duration-200 group-open:rotate-180" />
-                            </summary>
-
-                            <div class="ms-2 mt-1 border-s border-slate-200 ps-5">
-                                <a href="{{ route('owner.products') }}" class="block rounded-md px-3 py-2.5 text-sm transition-colors duration-150 {{ request()->routeIs('owner.products') ? 'bg-sky-500 font-medium text-white hover:bg-sky-600' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}" wire:navigate>Data Barang</a>
-                                <a href="{{ route('owner.categories') }}" class="block rounded-md px-3 py-2.5 text-sm transition-colors duration-150 {{ request()->routeIs('owner.categories') ? 'bg-sky-500 font-medium text-white hover:bg-sky-600' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}" wire:navigate>Kategori Barang</a>
-                                <a href="{{ route('owner.inventory') }}" class="block rounded-md px-3 py-2.5 text-sm transition-colors duration-150 {{ request()->routeIs('owner.inventory') ? 'bg-sky-500 font-medium text-white hover:bg-sky-600' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}" wire:navigate>Persediaan Barang</a>
-                                <a href="{{ route('owner.stock-in') }}" class="block rounded-md px-3 py-2.5 text-sm transition-colors duration-150 {{ request()->routeIs('owner.stock-in') ? 'bg-sky-500 font-medium text-white hover:bg-sky-600' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}" wire:navigate>Barang Masuk</a>
-                                <a href="{{ route('owner.stock-out') }}" class="block rounded-md px-3 py-2.5 text-sm transition-colors duration-150 {{ request()->routeIs('owner.stock-out') ? 'bg-sky-500 font-medium text-white hover:bg-sky-600' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}" wire:navigate>Barang Keluar</a>
-                            </div>
-                        </details>
-                    </div>
+                    <flux:sidebar.group heading="Inventaris" class="mt-5 grid gap-1">
+                        <flux:sidebar.item icon="cube" :href="route('owner.products')" :current="request()->routeIs('owner.products')" wire:navigate>Data Barang</flux:sidebar.item>
+                        <flux:sidebar.item icon="tag" :href="route('owner.categories')" :current="request()->routeIs('owner.categories')" wire:navigate>Kategori Barang</flux:sidebar.item>
+                        <flux:sidebar.item icon="archive-box" :href="route('owner.inventory')" :current="request()->routeIs('owner.inventory')" wire:navigate>Persediaan Barang</flux:sidebar.item>
+                        <flux:sidebar.item icon="arrow-down-tray" :href="route('owner.stock-in')" :current="request()->routeIs('owner.stock-in')" wire:navigate>Barang Masuk</flux:sidebar.item>
+                        <flux:sidebar.item icon="arrow-up-tray" :href="route('owner.stock-out')" :current="request()->routeIs('owner.stock-out')" wire:navigate>Barang Keluar</flux:sidebar.item>
+                    </flux:sidebar.group>
 
                     <flux:sidebar.group heading="Operasional" class="mt-5 grid gap-1">
                         <flux:sidebar.item icon="shopping-cart" href="#">Transaksi Penjualan</flux:sidebar.item>

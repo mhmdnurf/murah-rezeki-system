@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\InventoryMovement;
 use App\Models\Product;
 use App\Models\Role;
 use App\Models\User;
@@ -41,6 +42,10 @@ class DatabaseSeeder extends Seeder
             email: 'pemilik@example.com',
             password: 'password',
             role: $ownerRole,
+        );
+
+        $this->seedInventoryMovements(
+            User::query()->where('username', 'pemilik')->firstOrFail(),
         );
 
         $this->seedUser(
@@ -91,6 +96,42 @@ class DatabaseSeeder extends Seeder
                     'selling_price' => $product['selling_price'],
                     'stock' => $product['stock'],
                     'is_active' => true,
+                ],
+            );
+        }
+    }
+
+    private function seedInventoryMovements(User $owner): void
+    {
+        foreach (Product::query()->get() as $product) {
+            $receivedQuantity = max($product->stock + 5, 10);
+            $issuedQuantity = $receivedQuantity - $product->stock;
+
+            InventoryMovement::updateOrCreate(
+                [
+                    'product_id' => $product->id,
+                    'type' => InventoryMovement::TYPE_IN,
+                    'note' => 'Stok awal seed',
+                ],
+                [
+                    'quantity' => $receivedQuantity,
+                    'created_by' => $owner->id,
+                    'created_at' => now()->subDays(3),
+                    'updated_at' => now()->subDays(3),
+                ],
+            );
+
+            InventoryMovement::updateOrCreate(
+                [
+                    'product_id' => $product->id,
+                    'type' => InventoryMovement::TYPE_OUT,
+                    'note' => 'Pengeluaran simulasi seed',
+                ],
+                [
+                    'quantity' => $issuedQuantity,
+                    'created_by' => $owner->id,
+                    'created_at' => now()->subDay(),
+                    'updated_at' => now()->subDay(),
                 ],
             );
         }
