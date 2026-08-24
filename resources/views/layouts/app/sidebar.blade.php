@@ -30,15 +30,15 @@
                     </flux:sidebar.group>
 
                     <flux:sidebar.group heading="Operasional" class="mt-5 grid gap-1">
-                        <flux:sidebar.item icon="shopping-cart" :href="route('cashier.sales')" :current="request()->routeIs('cashier.sales')" wire:navigate>Transaksi Penjualan</flux:sidebar.item>
+                        <flux:sidebar.item icon="receipt-percent" :href="route('sales.history')" :current="request()->routeIs('sales.history')" wire:navigate>Riwayat Penjualan</flux:sidebar.item>
                         <flux:sidebar.item icon="chart-bar" href="#">Laporan Penjualan</flux:sidebar.item>
                         <flux:sidebar.item icon="users" href="#">Kelola Akun</flux:sidebar.item>
                     </flux:sidebar.group>
                 @else
                     <flux:sidebar.group heading="Menu Kasir" class="grid gap-1">
                         <flux:sidebar.item icon="layout-grid" :href="route('cashier.dashboard')" :current="request()->routeIs('cashier.dashboard', 'dashboard')" wire:navigate>Dashboard</flux:sidebar.item>
-                        <flux:sidebar.item icon="shopping-cart" href="#">Transaksi Penjualan</flux:sidebar.item>
-                        <flux:sidebar.item icon="clock" href="#">Riwayat Transaksi</flux:sidebar.item>
+                        <flux:sidebar.item icon="shopping-cart" :href="route('cashier.sales')" :current="request()->routeIs('cashier.sales')" wire:navigate>Transaksi Penjualan</flux:sidebar.item>
+                        <flux:sidebar.item icon="clock" :href="route('sales.history')" :current="request()->routeIs('sales.history')" wire:navigate>Riwayat Transaksi</flux:sidebar.item>
                     </flux:sidebar.group>
                 @endif
             </flux:sidebar.nav>

@@ -51,6 +51,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::livewire('cashier/sales', 'pages::cashier.sales')
         ->middleware('role:'.Role::CASHIER)
         ->name('cashier.sales');
+
+    Route::livewire('sales/history', 'pages::sales.history')
+        ->middleware('role:'.Role::OWNER.','.Role::CASHIER)
+        ->name('sales.history');
 });
 
 require __DIR__.'/settings.php';
