@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,11 +17,43 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $ownerRole = Role::updateOrCreate(
+            ['slug' => Role::OWNER],
+            ['name' => 'Owner'],
+        );
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        Role::updateOrCreate(
+            ['slug' => Role::CASHIER],
+            ['name' => 'Cashier'],
+        );
+
+        $this->seedUser(
+            username: 'pemilik',
+            name: 'Pemilik',
+            email: 'pemilik@example.com',
+            password: 'password',
+            role: $ownerRole,
+        );
+
+        $this->seedUser(
+            username: 'kasir',
+            name: 'Kasir',
+            email: 'kasir@example.com',
+            password: 'password',
+            role: Role::where('slug', Role::CASHIER)->firstOrFail(),
+        );
+    }
+
+    private function seedUser(string $username, string $name, string $email, string $password, Role $role): void
+    {
+        $user = User::query()->firstOrNew(['username' => $username]);
+        $user->forceFill([
+            'name' => $name,
+            'email' => $email,
+            'password' => Hash::make($password),
+            'role_id' => $role->id,
+            'email_verified_at' => now(),
         ]);
+        $user->save();
     }
 }
