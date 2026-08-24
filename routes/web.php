@@ -28,6 +28,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->middleware('role:'.Role::OWNER)
         ->name('owner.categories');
 
+    Route::livewire('owner/products', 'pages::owner.products')
+        ->middleware('role:'.Role::OWNER)
+        ->name('owner.products');
+
     Route::view('cashier/dashboard', 'dashboard')
         ->middleware('role:'.Role::CASHIER)
         ->name('cashier.dashboard');

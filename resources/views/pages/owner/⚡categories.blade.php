@@ -32,6 +32,7 @@ new #[Title('Kategori Barang')] class extends Component
     public function categories(): \Illuminate\Database\Eloquent\Collection
     {
         return Category::query()
+            ->withCount('products')
             ->when($this->search !== '', fn ($query) => $query->where('name', 'like', '%'.$this->search.'%'))
             ->orderBy('name')
             ->get();
@@ -188,7 +189,7 @@ new #[Title('Kategori Barang')] class extends Component
                             <tr class="transition-colors duration-150 hover:bg-slate-50" wire:key="category-{{ $category->id }}">
                                 <td class="px-5 py-3.5 text-slate-400">{{ $loop->iteration }}</td>
                                 <td class="px-5 py-3.5 font-semibold text-slate-700">{{ $category->name }}</td>
-                                <td class="px-5 py-3.5 text-slate-500">0 barang</td>
+                                <td class="px-5 py-3.5 text-slate-500">{{ $category->products_count }} barang</td>
                                 <td class="px-5 py-3.5"><flux:badge size="sm" color="green">Aktif</flux:badge></td>
                                 <td class="px-5 py-3.5">
                                     <div class="flex justify-end gap-2">

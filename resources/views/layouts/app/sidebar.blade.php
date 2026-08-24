@@ -30,7 +30,7 @@
                             </summary>
 
                             <div class="ms-2 mt-1 border-s border-slate-200 ps-5">
-                                <a href="#" class="block rounded-md px-3 py-2.5 text-sm text-slate-600 transition-colors duration-150 hover:bg-slate-50 hover:text-slate-900">Data Barang</a>
+                                <a href="{{ route('owner.products') }}" class="block rounded-md px-3 py-2.5 text-sm transition-colors duration-150 {{ request()->routeIs('owner.products') ? 'bg-sky-500 font-medium text-white hover:bg-sky-600' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}" wire:navigate>Data Barang</a>
                                 <a href="{{ route('owner.categories') }}" class="block rounded-md px-3 py-2.5 text-sm transition-colors duration-150 {{ request()->routeIs('owner.categories') ? 'bg-sky-500 font-medium text-white hover:bg-sky-600' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}" wire:navigate>Kategori Barang</a>
                                 <a href="#" class="block rounded-md px-3 py-2.5 text-sm text-slate-600 transition-colors duration-150 hover:bg-slate-50 hover:text-slate-900">Persediaan Barang</a>
                                 <a href="#" class="block rounded-md px-3 py-2.5 text-sm text-slate-600 transition-colors duration-150 hover:bg-slate-50 hover:text-slate-900">Barang Masuk</a>

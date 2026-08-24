@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -32,6 +33,8 @@ class DatabaseSeeder extends Seeder
             Category::updateOrCreate(['name' => $categoryName]);
         }
 
+        $this->seedProducts();
+
         $this->seedUser(
             username: 'pemilik',
             name: 'Pemilik',
@@ -60,5 +63,36 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
         ]);
         $user->save();
+    }
+
+    private function seedProducts(): void
+    {
+        $categoryIds = Category::query()->pluck('id', 'name');
+
+        $products = [
+            ['sku' => 'BRG-001', 'name' => 'Indomie Goreng', 'category' => 'Makanan', 'selling_price' => 3500, 'stock' => 240],
+            ['sku' => 'BRG-002', 'name' => 'Aqua 600 ml', 'category' => 'Minuman', 'selling_price' => 4000, 'stock' => 18],
+            ['sku' => 'BRG-003', 'name' => 'Teh Botol Sosro', 'category' => 'Minuman', 'selling_price' => 5000, 'stock' => 96],
+            ['sku' => 'BRG-004', 'name' => 'Gula Pasir 1 kg', 'category' => 'Kebutuhan Rumah Tangga', 'selling_price' => 16500, 'stock' => 8],
+            ['sku' => 'BRG-005', 'name' => 'Minyak Goreng 1 Liter', 'category' => 'Kebutuhan Rumah Tangga', 'selling_price' => 18000, 'stock' => 54],
+            ['sku' => 'BRG-006', 'name' => 'Rinso 800 gram', 'category' => 'Perawatan', 'selling_price' => 24000, 'stock' => 0],
+            ['sku' => 'BRG-007', 'name' => 'Lifebuoy Sabun Mandi', 'category' => 'Perawatan', 'selling_price' => 5500, 'stock' => 132],
+            ['sku' => 'BRG-008', 'name' => 'Kopi Kapal Api', 'category' => 'Minuman', 'selling_price' => 2500, 'stock' => 310],
+            ['sku' => 'BRG-009', 'name' => 'Susu Ultra Milk', 'category' => 'Minuman', 'selling_price' => 7000, 'stock' => 6],
+            ['sku' => 'BRG-010', 'name' => 'Beras 5 kg', 'category' => 'Kebutuhan Rumah Tangga', 'selling_price' => 72000, 'stock' => 0],
+        ];
+
+        foreach ($products as $product) {
+            Product::updateOrCreate(
+                ['sku' => $product['sku']],
+                [
+                    'category_id' => $categoryIds[$product['category']],
+                    'name' => $product['name'],
+                    'selling_price' => $product['selling_price'],
+                    'stock' => $product['stock'],
+                    'is_active' => true,
+                ],
+            );
+        }
     }
 }
