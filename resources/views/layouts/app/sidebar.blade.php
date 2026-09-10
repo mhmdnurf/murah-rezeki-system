@@ -31,7 +31,7 @@
 
                     <flux:sidebar.group heading="Operasional" class="mt-5 grid gap-1">
                         <flux:sidebar.item icon="receipt-percent" :href="route('sales.history')" :current="request()->routeIs('sales.history')" wire:navigate>Riwayat Penjualan</flux:sidebar.item>
-                        <flux:sidebar.item icon="chart-bar" href="#">Laporan Penjualan</flux:sidebar.item>
+                        <flux:sidebar.item icon="chart-bar" :href="route('owner.reports')" :current="request()->routeIs('owner.reports*')" wire:navigate>Laporan Penjualan</flux:sidebar.item>
                         <flux:sidebar.item icon="users" href="#">Kelola Akun</flux:sidebar.item>
                     </flux:sidebar.group>
                 @else

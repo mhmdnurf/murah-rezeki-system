@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Owner\ReportController;
 use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('owner/dashboard', 'dashboard')
         ->middleware('role:'.Role::OWNER)
         ->name('owner.dashboard');
+
+    Route::middleware('role:'.Role::OWNER)->group(function () {
+        Route::livewire('owner/reports', 'pages::owner.reports')->name('owner.reports');
+        Route::get('owner/reports/pdf', [ReportController::class, 'pdf'])->name('owner.reports.pdf');
+        Route::get('owner/reports/excel', [ReportController::class, 'excel'])->name('owner.reports.excel');
+    });
 
     Route::livewire('owner/categories', 'pages::owner.categories')
         ->middleware('role:'.Role::OWNER)
