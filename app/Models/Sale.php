@@ -6,7 +6,12 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property Carbon $transaction_date
+ * @property-read int|string|null $items_sum_quantity
+ */
 #[Fillable(['invoice_number', 'user_id', 'transaction_date', 'subtotal', 'discount', 'total', 'status'])]
 class Sale extends Model
 {
@@ -14,6 +19,8 @@ class Sale extends Model
 
     /**
      * Get the cashier who created the sale.
+     *
+     * @return BelongsTo<User, $this>
      */
     public function cashier(): BelongsTo
     {
@@ -22,6 +29,8 @@ class Sale extends Model
 
     /**
      * Get the items in the sale.
+     *
+     * @return HasMany<SaleItem, $this>
      */
     public function items(): HasMany
     {
@@ -30,6 +39,8 @@ class Sale extends Model
 
     /**
      * Get the payments for the sale.
+     *
+     * @return HasMany<Payment, $this>
      */
     public function payments(): HasMany
     {

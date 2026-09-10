@@ -98,7 +98,7 @@ class ReportService
     {
         return [
             'Periode' => $filters['startDate'].' s/d '.$filters['endDate'],
-            'Kasir' => empty($filters['cashierId']) ? 'Semua kasir' : (User::find($filters['cashierId'])?->name ?? '—'),
+            'Kasir' => empty($filters['cashierId']) ? 'Semua kasir' : (User::query()->whereKey($filters['cashierId'])->first()->name ?? '—'),
             'Pembayaran' => self::paymentLabel($filters['paymentMethod'] ?? '') ?: 'Semua metode',
             'Status' => self::statusLabel($filters['status'] ?? '') ?: 'Semua status',
         ];
@@ -122,7 +122,7 @@ class ReportService
     /** @return list<string|int|float> */
     public function row(Sale $sale): array
     {
-        return [$sale->invoice_number, $sale->transaction_date->format('d/m/Y'), $sale->cashier?->name ?? '—', (int) $sale->items_sum_quantity, (float) $sale->total, $sale->payments->pluck('method')->unique()->map(fn (string $method) => self::paymentLabel($method))->implode(', ') ?: '—', self::statusLabel($sale->status)];
+        return [$sale->invoice_number, $sale->transaction_date->format('d/m/Y'), $sale->cashier->name ?? '—', (int) $sale->items_sum_quantity, (float) $sale->total, $sale->payments->pluck('method')->unique()->map(fn (string $method) => self::paymentLabel($method))->implode(', ') ?: '—', self::statusLabel($sale->status)];
     }
 
     /** @param array<string, mixed> $filters */
@@ -141,7 +141,7 @@ class ReportService
         ])->render());
         $pdf->setPaper('A4', 'landscape');
         $pdf->render();
-        $pdf->getCanvas()->page_text(730, 570, '{PAGE_NUM} / {PAGE_COUNT}', null, 8);
+        $pdf->getCanvas()->page_text(730, 570, '{PAGE_NUM} / {PAGE_COUNT}', $pdf->getFontMetrics()->getFont('Helvetica') ?? 'Helvetica', 8);
 
         return $pdf->output();
     }

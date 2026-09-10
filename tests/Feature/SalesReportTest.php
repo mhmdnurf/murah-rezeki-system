@@ -131,7 +131,7 @@ test('excel includes all filtered rows and preserves strings without formulas', 
         $spreadsheet = IOFactory::load($path);
         $sheet = $spreadsheet->getActiveSheet();
         expect($sheet->getCell('B8')->getValue())->toBe(21)
-            ->and($sheet->getCell('B9')->getValue())->toBe(210000)
+            ->and($sheet->getCell('B9')->getValue())->toBe(210000.0)
             ->and($sheet->getCell('A15')->getValue())->toBe('XLSX-021')
             ->and($sheet->getCell('A35')->getValue())->toBe('XLSX-001')
             ->and($sheet->getCell('C15')->getValue())->toBe('=1+1')
