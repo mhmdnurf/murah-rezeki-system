@@ -32,7 +32,8 @@
                     <flux:sidebar.group heading="Operasional" class="mt-5 grid gap-1">
                         <flux:sidebar.item icon="receipt-percent" :href="route('sales.history')" :current="request()->routeIs('sales.history')" wire:navigate>Riwayat Penjualan</flux:sidebar.item>
                         <flux:sidebar.item icon="chart-bar" :href="route('owner.reports')" :current="request()->routeIs('owner.reports*')" wire:navigate>Laporan Penjualan</flux:sidebar.item>
-                        <flux:sidebar.item icon="users" href="#">Kelola Akun</flux:sidebar.item>
+                        <flux:sidebar.item icon="users" :href="route('owner.users')" :current="request()->routeIs('owner.users')" wire:navigate>Kelola Akun</flux:sidebar.item>
+                        <flux:sidebar.item icon="cog" :href="route('owner.qris')" :current="request()->routeIs('owner.qris')" wire:navigate>Pengaturan QRIS</flux:sidebar.item>
                     </flux:sidebar.group>
                 @else
                     <flux:sidebar.group heading="Menu Kasir" class="grid gap-1">

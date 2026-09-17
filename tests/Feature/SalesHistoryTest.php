@@ -76,3 +76,22 @@ test('owner can view transaction detail', function () {
         ->assertSee('Produk INV-DETAIL-0001')
         ->assertSee('Rp10.000');
 });
+
+test('qris transaction detail shows its method without cash change fields', function () {
+    $cashier = historyUser(Role::CASHIER);
+    $sale = historySale($cashier, 'INV-QRIS-0001');
+    $sale->payments()->firstOrFail()->update([
+        'method' => Payment::METHOD_QRIS,
+        'status' => Payment::STATUS_CONFIRMED,
+        'received_amount' => null,
+        'change_amount' => 0,
+    ]);
+    $this->actingAs($cashier);
+
+    Livewire::test('pages::sales.history')
+        ->call('viewDetails', $sale->id)
+        ->assertSee('QRIS')
+        ->assertDontSee('Tunai')
+        ->assertDontSee('Uang diterima')
+        ->assertDontSee('Kembalian');
+});

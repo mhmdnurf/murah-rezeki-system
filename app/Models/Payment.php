@@ -11,7 +11,11 @@ class Payment extends Model
 {
     public const METHOD_CASH = 'CASH';
 
+    public const METHOD_QRIS = 'QRIS';
+
     public const STATUS_PAID = 'PAID';
+
+    public const STATUS_CONFIRMED = 'CONFIRMED';
 
     /**
      * Get the sale associated with the payment.
