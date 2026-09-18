@@ -1,27 +1,19 @@
 <?php
 
+use App\Http\Controllers\Cashier\DashboardController as CashierDashboardController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Owner\DashboardController as OwnerDashboardController;
 use App\Http\Controllers\Owner\ReportController;
+use App\Http\Controllers\ReceiptController;
 use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/login')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        $user = request()->user();
+    Route::get('dashboard', DashboardController::class)->name('dashboard');
 
-        if ($user?->hasRole(Role::OWNER)) {
-            return redirect()->route('owner.dashboard');
-        }
-
-        if ($user?->hasRole(Role::CASHIER)) {
-            return redirect()->route('cashier.dashboard');
-        }
-
-        return view('dashboard');
-    })->name('dashboard');
-
-    Route::view('owner/dashboard', 'dashboard')
+    Route::get('owner/dashboard', OwnerDashboardController::class)
         ->middleware('role:'.Role::OWNER)
         ->name('owner.dashboard');
 
@@ -53,7 +45,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->middleware('role:'.Role::OWNER)
         ->name('owner.stock-out');
 
-    Route::view('cashier/dashboard', 'dashboard')
+    Route::get('cashier/dashboard', CashierDashboardController::class)
         ->middleware('role:'.Role::CASHIER)
         ->name('cashier.dashboard');
 
@@ -64,6 +56,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::livewire('sales/history', 'pages::sales.history')
         ->middleware('role:'.Role::OWNER.','.Role::CASHIER)
         ->name('sales.history');
+
+    Route::get('sales/{sale}/receipt', ReceiptController::class)
+        ->middleware('role:'.Role::OWNER.','.Role::CASHIER)
+        ->name('sales.receipt');
 });
 
 require __DIR__.'/settings.php';

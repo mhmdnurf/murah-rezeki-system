@@ -16,17 +16,6 @@
             <div class="relative">
                 <flux:input name="password" label="Kata Sandi" type="password" required autocomplete="current-password"
                     placeholder="Masukkan kata sandi" viewable />
-
-                @if (Route::has('password.request'))
-                    <flux:link class="absolute end-0 top-0 text-xs font-medium text-[#119fd4]"
-                        :href="route('password.request')" wire:navigate>
-                        Lupa kata sandi?
-                    </flux:link>
-                @endif
-            </div>
-
-            <div class="flex items-center justify-between gap-4">
-                <flux:checkbox name="remember" label="Ingat saya" :checked="old('remember')" />
             </div>
 
             <div class="pt-1">

@@ -50,7 +50,7 @@ test('cashier can complete a cash sale and reduce stock', function () {
         'is_active' => true,
     ]);
 
-    Livewire::test('pages::cashier.sales')
+    $component = Livewire::test('pages::cashier.sales')
         ->call('addToCart', $product->id)
         ->call('addToCart', $product->id)
         ->set('receivedAmount', '10000')
@@ -61,6 +61,8 @@ test('cashier can complete a cash sale and reduce stock', function () {
 
     $sale = Sale::query()->with('items')->firstOrFail();
     $payment = Payment::query()->firstOrFail();
+
+    $component->assertRedirect(route('sales.receipt', $sale));
 
     expect($initialInvoiceNumber)->toBeString()->not->toBeEmpty()
         ->and(Str::length($initialInvoiceNumber))->toBeLessThanOrEqual(30)
@@ -182,6 +184,8 @@ test('cashier confirms qris payment with no cash amount and updates inventory', 
         ->assertSet('paymentMethod', Payment::METHOD_CASH);
 
     $payment = Payment::query()->firstOrFail();
+    $component->assertRedirect(route('sales.receipt', $payment->sale));
+
     expect($payment->method)->toBe(Payment::METHOD_QRIS)
         ->and($payment->status)->toBe(Payment::STATUS_CONFIRMED)
         ->and($payment->amount)->toEqual('5000.00')

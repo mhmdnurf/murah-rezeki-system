@@ -1,0 +1,150 @@
+:root {
+    color: #0f172a;
+    background: #f1f5f9;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    font-size: 14px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+.receipt-page {
+    width: min(100%, 90mm);
+    margin: 0 auto;
+    padding: 24px 12px;
+}
+
+.receipt-toolbar {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-bottom: 12px;
+}
+
+.receipt-toolbar a,
+.receipt-toolbar button {
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 9px 12px;
+    color: #0f172a;
+    background: #fff;
+    font: inherit;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.receipt-toolbar button {
+    border-color: #0284c7;
+    color: #fff;
+    background: #0284c7;
+}
+
+.receipt {
+    width: 100%;
+    padding: 7mm 5mm;
+    color: #000;
+    background: #fff;
+    box-shadow: 0 8px 28px rgb(15 23 42 / 10%);
+}
+
+.receipt p,
+.receipt h1 {
+    margin: 0;
+}
+
+.receipt-header {
+    padding-bottom: 12px;
+    text-align: center;
+}
+
+.receipt-header h1 {
+    font-size: 18px;
+}
+
+.receipt-header p,
+.receipt footer p {
+    margin-top: 4px;
+    font-size: 11px;
+}
+
+.receipt-meta,
+.receipt-totals {
+    padding: 10px 0;
+    border-top: 1px dashed #000;
+}
+
+.receipt-meta div,
+.receipt-totals div,
+.receipt-item div {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.receipt-meta div + div,
+.receipt-totals div + div {
+    margin-top: 5px;
+}
+
+.receipt-meta strong,
+.receipt-totals strong,
+.receipt-item strong {
+    text-align: right;
+}
+
+.receipt-items {
+    padding: 10px 0;
+    border-top: 1px dashed #000;
+}
+
+.receipt-item + .receipt-item {
+    margin-top: 9px;
+}
+
+.receipt-item p {
+    margin-bottom: 3px;
+    font-weight: 700;
+}
+
+.receipt-grand-total {
+    padding: 7px 0;
+    font-size: 16px;
+}
+
+.receipt footer {
+    padding-top: 10px;
+    border-top: 1px dashed #000;
+    text-align: center;
+}
+
+@media print {
+    @page {
+        margin: 4mm;
+    }
+
+    :root,
+    body {
+        background: #fff;
+    }
+
+    .receipt-page {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .receipt-toolbar {
+        display: none;
+    }
+
+    .receipt {
+        padding: 0;
+        box-shadow: none;
+    }
+}

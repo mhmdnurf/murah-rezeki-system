@@ -288,6 +288,8 @@ new #[Title('Transaksi Penjualan')] class extends Component
 
         $this->reset(['cart', 'receivedAmount', 'paymentMethod', 'showQrisConfirmation', 'qrisCartSnapshot', 'qrisDisplay']);
         Flux::toast(variant: 'success', text: 'Transaksi '.$sale->invoice_number.' berhasil disimpan.');
+
+        $this->redirectRoute('sales.receipt', ['sale' => $sale->id]);
     }
 };
 ?>

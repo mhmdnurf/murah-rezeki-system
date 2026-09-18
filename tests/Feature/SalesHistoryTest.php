@@ -74,7 +74,9 @@ test('owner can view transaction detail', function () {
     Livewire::test('pages::sales.history')
         ->call('viewDetails', $sale->id)
         ->assertSee('Produk INV-DETAIL-0001')
-        ->assertSee('Rp10.000');
+        ->assertSee('Rp10.000')
+        ->assertSee('Lihat / Cetak Struk')
+        ->assertSee(route('sales.receipt', $sale), false);
 });
 
 test('qris transaction detail shows its method without cash change fields', function () {
