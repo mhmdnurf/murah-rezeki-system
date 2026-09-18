@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['product_id', 'type', 'quantity', 'reference_type', 'reference_id', 'note', 'created_by'])]
+#[Fillable(['product_id', 'type', 'quantity', 'stock_before', 'stock_after', 'reference_type', 'reference_id', 'note', 'created_by'])]
 class InventoryMovement extends Model
 {
     public const TYPE_IN = 'IN';
@@ -17,6 +17,8 @@ class InventoryMovement extends Model
 
     /**
      * Get the product affected by the movement.
+     *
+     * @return BelongsTo<Product, $this>
      */
     public function product(): BelongsTo
     {
@@ -25,6 +27,8 @@ class InventoryMovement extends Model
 
     /**
      * Get the user who created the movement.
+     *
+     * @return BelongsTo<User, $this>
      */
     public function creator(): BelongsTo
     {
@@ -40,6 +44,8 @@ class InventoryMovement extends Model
     {
         return [
             'quantity' => 'integer',
+            'stock_before' => 'integer',
+            'stock_after' => 'integer',
             'reference_id' => 'integer',
         ];
     }

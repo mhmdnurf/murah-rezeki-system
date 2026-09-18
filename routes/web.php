@@ -21,6 +21,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::livewire('owner/qris', 'pages::owner.qris')->name('owner.qris');
         Route::livewire('owner/users', 'pages::owner.users')->name('owner.users');
         Route::livewire('owner/reports', 'pages::owner.reports')->name('owner.reports');
+        Route::livewire('owner/stock-adjustments', 'pages::owner.stock-adjustments')->name('owner.stock-adjustments');
         Route::get('owner/reports/pdf', [ReportController::class, 'pdf'])->name('owner.reports.pdf');
         Route::get('owner/reports/excel', [ReportController::class, 'excel'])->name('owner.reports.excel');
     });

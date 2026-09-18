@@ -27,6 +27,7 @@
                         <flux:sidebar.item icon="archive-box" :href="route('owner.inventory')" :current="request()->routeIs('owner.inventory')" wire:navigate>Persediaan Barang</flux:sidebar.item>
                         <flux:sidebar.item icon="arrow-down-tray" :href="route('owner.stock-in')" :current="request()->routeIs('owner.stock-in')" wire:navigate>Barang Masuk</flux:sidebar.item>
                         <flux:sidebar.item icon="arrow-up-tray" :href="route('owner.stock-out')" :current="request()->routeIs('owner.stock-out')" wire:navigate>Barang Keluar</flux:sidebar.item>
+                        <flux:sidebar.item icon="adjustments-horizontal" :href="route('owner.stock-adjustments')" :current="request()->routeIs('owner.stock-adjustments')" wire:navigate>Penyesuaian Stok</flux:sidebar.item>
                     </flux:sidebar.group>
 
                     <flux:sidebar.group heading="Operasional" class="mt-5 grid gap-1">
