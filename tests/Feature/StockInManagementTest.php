@@ -76,3 +76,18 @@ test('stock in requires a positive quantity', function () {
         ->call('save')
         ->assertHasErrors(['quantity']);
 });
+
+test('stock in form marks product and quantity as required', function () {
+    $this->actingAs(stockInOwner());
+
+    $component = Livewire::test('pages::owner.stock-in')
+        ->call('create')
+        ->assertSeeInOrder(['Barang', 'Wajib', 'Jumlah Barang', 'Wajib']);
+
+    $document = new DOMDocument;
+    $document->loadHTML($component->html());
+    $xpath = new DOMXPath($document);
+
+    expect($xpath->query('//select[@name="productId" and @required]')->length)->toBe(1)
+        ->and($xpath->query('//input[@name="quantity" and @required]')->length)->toBe(1);
+});

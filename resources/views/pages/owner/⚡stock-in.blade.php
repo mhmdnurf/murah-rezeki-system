@@ -147,8 +147,41 @@ new #[Title('Barang Masuk')] class extends Component
     </div>
 
     <flux:modal wire:model="showForm" class="md:w-[520px]">
-        <div class="space-y-6"><div><flux:heading size="lg">Catat Barang Masuk</flux:heading><flux:text class="mt-1 text-sm text-slate-500">Stok barang akan bertambah setelah data disimpan.</flux:text></div>
-            <form wire:submit="save" class="space-y-4"><flux:field><flux:label>Barang</flux:label><flux:select wire:model="productId"><flux:select.option value="">Pilih barang</flux:select.option>@foreach ($this->products as $product)<flux:select.option value="{{ $product->id }}">{{ $product->sku }} — {{ $product->name }} (stok {{ $product->stock }})</flux:select.option>@endforeach</flux:select><flux:error name="productId" /></flux:field><flux:field><flux:label>Jumlah Barang</flux:label><flux:input wire:model="quantity" type="number" min="1" step="1" placeholder="1" /><flux:error name="quantity" /></flux:field><flux:field><flux:label>Catatan <span class="font-normal text-slate-400">(opsional)</span></flux:label><flux:textarea wire:model="note" rows="3" placeholder="Contoh: Restock dari supplier" /><flux:error name="note" /></flux:field><div class="flex justify-end gap-2"><flux:button type="button" variant="ghost" wire:click="closeForm">Batal</flux:button><flux:button type="submit" variant="primary" class="!bg-sky-500 hover:!bg-sky-600">Simpan</flux:button></div></form>
+        <div class="space-y-6">
+            <div>
+                <flux:heading size="lg">Catat Barang Masuk</flux:heading>
+                <flux:text class="mt-1 text-sm text-slate-500">Stok barang akan bertambah setelah data disimpan.</flux:text>
+            </div>
+
+            <form wire:submit="save" class="space-y-4">
+                <flux:field>
+                    <flux:label badge="Wajib">Barang</flux:label>
+                    <flux:select wire:model="productId" required>
+                        <flux:select.option value="">Pilih barang</flux:select.option>
+                        @foreach ($this->products as $product)
+                            <flux:select.option value="{{ $product->id }}">{{ $product->sku }} — {{ $product->name }} (stok {{ $product->stock }})</flux:select.option>
+                        @endforeach
+                    </flux:select>
+                    <flux:error name="productId" />
+                </flux:field>
+
+                <flux:field>
+                    <flux:label badge="Wajib">Jumlah Barang</flux:label>
+                    <flux:input wire:model="quantity" type="number" min="1" step="1" placeholder="1" required />
+                    <flux:error name="quantity" />
+                </flux:field>
+
+                <flux:field>
+                    <flux:label>Catatan <span class="font-normal text-slate-400">(opsional)</span></flux:label>
+                    <flux:textarea wire:model="note" rows="3" placeholder="Contoh: Restock dari supplier" />
+                    <flux:error name="note" />
+                </flux:field>
+
+                <div class="flex justify-end gap-2">
+                    <flux:button type="button" variant="ghost" wire:click="closeForm">Batal</flux:button>
+                    <flux:button type="submit" variant="primary" class="!bg-sky-500 hover:!bg-sky-600">Simpan</flux:button>
+                </div>
+            </form>
         </div>
     </flux:modal>
 </section>
