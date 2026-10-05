@@ -330,7 +330,7 @@ new #[Title('Data Barang')] class extends Component
                 </flux:field>
                 <flux:field>
                     <flux:label>Stok Awal</flux:label>
-                    <flux:input wire:model="stock" type="number" min="0" step="1" placeholder="0" />
+                    <flux:input wire:model="stock" type="number" min="0" step="1" placeholder="0" :disabled="$editingProductId !== null" />
                     <flux:error name="stock" />
                 </flux:field>
                 <div class="flex items-end pb-2"><flux:checkbox wire:model="isActive" label="Barang aktif" /></div>

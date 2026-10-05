@@ -85,10 +85,17 @@ test('owner can edit and delete a product', function () {
         'is_active' => true,
     ]);
 
-    Livewire::test('pages::owner.products')
-        ->call('edit', $product->id)
+    $component = Livewire::test('pages::owner.products')
+        ->call('edit', $product->id);
+
+    $document = new DOMDocument;
+    $document->loadHTML($component->html());
+    $xpath = new DOMXPath($document);
+
+    expect($xpath->query('//input[@name="stock" and @disabled]')->length)->toBe(1);
+
+    $component
         ->set('name', 'Rinso 1 kg')
-        ->set('stock', '12')
         ->call('save')
         ->call('confirmDelete', $product->id)
         ->call('deleteConfirmed')
